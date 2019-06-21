@@ -1,5 +1,5 @@
 // 获取当前选项卡ID
-function getCurrentTabId(callback)
+export function getCurrentTabId(callback)
 {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs)
     {
@@ -18,8 +18,5 @@ function sendMessageToContentScript(message, callback)
     });
 }
 
-module.exports = {
-    
-    sendMessageToNowTab:sendMessageToContentScript,
-    getCurrentTabId
-}
+
+export const sendMessageToNowTab=sendMessageToContentScript

@@ -1,31 +1,26 @@
-var CryptoJS = require('crypto-js');
-exports.base64ToUrlSafe = function (v) {
+import CryptoJS from 'crypto-js'
+export const base64ToUrlSafe = function (v) {
     return v.replace(/\//g, '_').replace(/\+/g, '-');
   }
   
-  exports.urlSafeToBase64 = function(v) {
+export const urlSafeToBase64 = function(v) {
     return v.replace(/\_/g, '/').replace(/\-/g, '+');
   }
   
-  // UrlSafe Base64 Encode
-  exports.urlsafeBase64Encode = function(jsonFlags) {
+export const urlsafeBase64Encode = function(jsonFlags) {
     var encoded = new Buffer(jsonFlags).toString('base64');
     return exports.base64ToUrlSafe(encoded);
-  }
+}
   
-  // UrlSafe Base64 Decode
-  exports.urlSafeBase64Decode = function(fromStr) {
+export const urlSafeBase64Decode = function(fromStr) {
     return new Buffer(exports.urlSafeToBase64(fromStr), 'base64').toString();
   }
 
-  exports.hmacSha1 = function(encodedFlags, secretKey) {
-    /*
-     *return value already encoded with base64
-     * */
+export const hmacSha1 = function(encodedFlags, secretKey) {
     var hash = CryptoJS.HmacSHA1(encodedFlags, secretKey);
     return hash.toString(CryptoJS.enc.Base64)
 }
-exports.uuid = function () {
+export const  uuid = function () {
     var s = [];
     var hexDigits = "0123456789abcdef";
     for (var i = 0; i < 36; i++) {

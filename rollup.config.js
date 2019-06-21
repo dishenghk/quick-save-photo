@@ -55,7 +55,8 @@ export default [
             }),
             copy(
                 {
-                    "src/popup.html":"dist/popup.html"
+                    "src/popup.html":"dist/popup.html",
+                    "src/manifest.json":"dist/manifest.json"
                 }
             )
         ],

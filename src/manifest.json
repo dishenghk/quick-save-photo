@@ -1,0 +1,43 @@
+{
+    "manifest_version": 2,
+    "name": "一键图床",
+    "version": "1.0.0",
+    "description": "右击保存图床",
+    "icons":
+    {
+        "16": "icon.png",
+        "48": "icon.png",
+        "32": "icon.png",
+        "128": "icon.png"
+    },
+    "background":
+    {
+        "scripts": ["background.js"]
+    },
+    "browser_action": 
+    {
+        "default_icon": "icon.png",
+        "default_title": "一键图床",
+        "default_popup": "popup.html"
+    },
+    
+    "permissions":
+    [
+        "contextMenus",
+        "notifications",
+        "*://*/*",
+        "webRequest",
+        "webRequestBlocking"
+    ],
+    "content_scripts": 
+    [
+        {
+
+            "matches": ["<all_urls>"],
+            "js": ["content.js"],
+            "run_at": "document_start"
+        }
+    ],
+    
+    "homepage_url": "http://www.dishenghk.cn"
+}

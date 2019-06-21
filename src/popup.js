@@ -1,5 +1,4 @@
-const { getCurrentTabId } = require("./sendMessageToTab")
-console.log('xxx')
+import { getCurrentTabId }  from "./utils"
 getCurrentTabId((tabId) => {
     const backgroundWindow = chrome.extension.getBackgroundPage()
         console.log(backgroundWindow)

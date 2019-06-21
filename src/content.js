@@ -1,18 +1,38 @@
+import {readBlobAsDataURL} from "./utils"
 chrome.runtime.onMessage.addListener(function(request,sneder,sendResponse)
 {
     if (request.messageType == 'copyDate') {
-        navigator.clipboard.writeText(request.value)
-        .then(() => {
-            console.log('文本已经成功复制到剪切板');
-            sendResponse("xxx")
-        })
-        .catch(err => {
-          console.error('无法复制此文本：', err);
-        });
+        console.log("img Url",request.value)
+        if(navigator.clipboard){
+            navigator.clipboard.writeText(request.value)
+            .then(() => {
+                console.log('文本已经成功复制到剪切板');
+                sendResponse("xxx")
+            })
+            .catch(err => {
+              console.error('无法复制此文本：', err);
+            });
+        }
+       
         
     }
     
 });
+
+
+function sendBackImageUrl(image){
+    chrome.runtime.sendMessage(
+        {messageType:"logBackImageUrl",value:image}
+    )
+}
+function sendImageFile(imageFile){
+    readBlobAsDataURL(imageFile,(dataUrl)=>{
+        chrome.runtime.sendMessage(
+            {messageType:"uploadImageFile",value:dataUrl}
+        )
+    })
+    
+}
 document.onmousedown = (e) => {
     const { backgroundImage } = e.target.style
     const { target } = e
@@ -34,11 +54,22 @@ document.onmousedown = (e) => {
 
 
 }
-function sendBackImageUrl(image){
-    chrome.runtime.sendMessage(
-        {messageType:"logBackImageUrl",value:image}
-    )
-}
+document.addEventListener('paste', function (event) {
+    var items = event.clipboardData && event.clipboardData.items;
+    var file = null;
+    if (items && items.length) {
+        // 检索剪切板items
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type.indexOf('image') !== -1) {
+                file = items[i].getAsFile();
+                sendImageFile(file)
+                break;
+            }
+        }
+    }
+});
+
+
 //递归找到第一个img标签
 function findImg(nowNode, imgNode, deep = 0) {
     if (imgNode.currentSrc) return 

@@ -72,8 +72,7 @@ function utf8Encode(argString) {
   
     return utftext;
   }
-  
-  function base64Encode(data) {
+function base64Encode(data) {
     // http://kevin.vanzonneveld.net
     // +   original by: Tyler Akins (http://rumkin.com)
     // +   improved by: Bayron Guevara
@@ -196,16 +195,12 @@ function utf8Encode(argString) {
   
     return dec;
   }
-function urlSafeBase64Encode(v) {
+export function urlSafeBase64Encode(v) {
     v = base64Encode(v);
     return v.replace(/\//g, "_").replace(/\+/g, "-");
   }
   
- function urlSafeBase64Decode(v){
+export  function urlSafeBase64Decode(v){
     v = v.replace(/_/g, "/").replace(/-/g, "+");
     return base64Decode(v);
-  }
-module.exports = {
-    urlSafeBase64Decode,
-    urlSafeBase64Encode
   }

@@ -1,5 +1,5 @@
 const imgLogs = new Map();
-function logImgHttp() {
+export function logImgHttp() {
     chrome.webRequest.onBeforeRequest.addListener((details) => {
         let tabImgLogs=null
         if (imgLogs.has(details.tabId)) {
@@ -14,9 +14,6 @@ function logImgHttp() {
             types:["image"]
     })
 }
-function getImglogs() {
+export function getImglogs() {
     return imgLogs
-}
-module.exports = {
-    logImgHttp,getImglogs
 }
